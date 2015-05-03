@@ -4,9 +4,9 @@ layout: blog
 
 {% for post in site.categories.blog %}
 <div class="article-wrapper">
-	<a class="btn" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-    {{ post.content | split: '<more />' | first }}
-    <a class="btn" href="{{ post.url | prepend: site.baseurl }}">more...</a>
+	<a href="{{ post.url | prepend: site.baseurl }}"><b>{{ post.title }}</b></a>
+    {{ post.content | split: '<more />' | first }}<br />
+    <a href="{{ post.url | prepend: site.baseurl }}">more...</a>
 </div>
 
 {% if forloop.last != true %}
