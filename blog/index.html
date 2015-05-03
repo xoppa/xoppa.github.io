@@ -1,10 +1,12 @@
 ---
-layout: default
+layout: blog
 ---
 
-{% for post in paginator.posts %}
+{% for post in site.categories.blog %}
 <div class="article-wrapper">
 	<a class="btn" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+    {{ post.content | split: '<more />' | first }}
+    <a class="btn" href="{{ post.url | prepend: site.baseurl }}">more...</a>
 </div>
 
 {% if forloop.last != true %}

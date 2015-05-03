@@ -1,0 +1,5 @@
+markdown: redcarpet
+highlighter: null
+permalink: /blog/:title.html
+encoding: "utf-8"
+
