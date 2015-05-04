@@ -1,5 +1,4 @@
 markdown: redcarpet
-highlighter: null
-permalink: /blog/:title.html
+permalink: /:categories/:title/
 encoding: "utf-8"
 

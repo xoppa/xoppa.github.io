@@ -5,6 +5,7 @@ layout: blogpost
 comments: true
 title: Basic 3D using libGDX
 tags: libGDX 3D Graphics
+author: Xoppa
 
 ---
 
@@ -143,8 +144,10 @@ public class Basic3DTest implements ApplicationListener {
 ```
 <a href="https://github.com/xoppa/blog/blob/master/tutorials/src/com/xoppa/blog/libgdx/g3d/basic3d/step1/Basic3DTest.java" title="View full source code on github" target="_blank">View full source code on github</a>
 
-Here we add the ModelBatch, which is responsable for rendering and we initialize it in the create method. In the render method we clear the screen, call modelBatch.begin(cam), render our ModelInstance and then call modelBatch.end() to finish rendering. Finally we need to dispose the modelBatch to make sure all resources (like the shaders it uses) are properly disposed.
-<a href="http://blog.xoppa.com/wp-content/uploads/basic3dtest1.png"><img src="http://blog.xoppa.com/wp-content/uploads/basic3dtest1-300x236.png" alt="basic3dtest1" width="300" height="236" class="alignnone size-medium wp-image-27" /></a>
+Here we add the ModelBatch, which is responsable for rendering and we initialize it in the create method. In the render method we clear the screen, call modelBatch.begin(cam), render our ModelInstance and then call modelBatch.end() to finish rendering. Finally we need to dispose the modelBatch to make sure all resources (like the shaders it uses) are properly disposed.<br />
+
+<a href="basic3dtest1.png"><img src="basic3dtest1.png" alt="basic3dtest1" width="300" /></a><br />
+
 That looks OK, but some lighting might help a bit, so let's add lighting:
 
 ```java
@@ -174,8 +177,10 @@ public class Basic3DTest implements ApplicationListener {
 ```
 <a href="https://github.com/xoppa/blog/blob/master/tutorials/src/com/xoppa/blog/libgdx/g3d/basic3d/step2/Basic3DTest.java" title="View full source code on github" target="_blank">View full source code on github</a>
 
-Here we add an Environment instance. We construct it and set the ambient light (0.4, 0.4, 0.4), note that the alpha value is ignored. Then we add a DirectionalLight with the color of (0.8, 0.8, 0.8) and the direction of (-1.0, -0.8f, 0.2). I assume that you're familiar with lights in general. Finally we pass the environment to the modelbatch when rendering the instance.
-<a href="http://blog.xoppa.com/wp-content/uploads/basic3dtest2.png"><img src="http://blog.xoppa.com/wp-content/uploads/basic3dtest2-300x236.png" alt="basic3dtest2" width="300" height="236" class="alignnone size-medium wp-image-30" /></a>
+Here we add an Environment instance. We construct it and set the ambient light (0.4, 0.4, 0.4), note that the alpha value is ignored. Then we add a DirectionalLight with the color of (0.8, 0.8, 0.8) and the direction of (-1.0, -0.8f, 0.2). I assume that you're familiar with lights in general. Finally we pass the environment to the modelbatch when rendering the instance.<br />
+
+<a href="basic3dtest2.png"><img src="basic3dtest2.png" alt="basic3dtest2" width="300" /></a><br />
+
 That looks alot better. Now let's control the camera so we can look at the model from other perspectives.
 
 ```java
@@ -205,4 +210,4 @@ Here we add a CameraInputController which we create with our cam as argument. We
 
 The complete Basic3DTest code is also included with the LibGDX tests.
 
-<a href="http://blog.xoppa.com/loading-models-using-libgdx/" title="Loading models using LibGDX">Next: loading models using LibGDX</a>
+[Next: loading models using LibGDX]({% post_url 2013-05-25-loading-models-using-libgdx %})
