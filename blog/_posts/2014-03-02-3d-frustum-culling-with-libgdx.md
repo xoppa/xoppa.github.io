@@ -6,6 +6,7 @@ comments: true
 title: 3D frustum culling with libGDX
 tags: libGDX 3D Graphics
 author: Xoppa
+eye_catch: frustumculling2.png
 
 ---
 

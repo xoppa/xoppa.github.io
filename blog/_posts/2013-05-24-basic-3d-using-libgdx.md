@@ -6,6 +6,7 @@ comments: true
 title: Basic 3D using libGDX
 tags: libGDX 3D Graphics
 author: Xoppa
+eye_catch: basic3dtest2.png
 
 ---
 

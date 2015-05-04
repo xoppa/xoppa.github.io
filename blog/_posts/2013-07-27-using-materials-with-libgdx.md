@@ -6,6 +6,7 @@ comments: true
 title: Using materials with libGDX
 tags: libGDX 3D Graphics
 author: Xoppa
+eye_catch: shadertest13.png
 
 ---
 

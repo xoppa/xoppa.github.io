@@ -6,6 +6,7 @@ comments: true
 title: Loading a 3D scene with libGDX
 tags: libGDX 3D Graphics
 author: Xoppa
+eye_catch: scenetest1.png
 
 ---
 

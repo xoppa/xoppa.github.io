@@ -6,6 +6,7 @@ comments: true
 title: Loading models using libGDX
 tags: libGDX 3D Graphics
 author: Xoppa
+eye_catch: modeltest1.png
 
 ---
 

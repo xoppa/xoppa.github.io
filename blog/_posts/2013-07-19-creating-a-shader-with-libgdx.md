@@ -6,6 +6,7 @@ comments: true
 title: Creating a shader with libGDX
 tags: libGDX 3D Graphics
 author: Xoppa
+eye_catch: shadertest4.png
 
 ---
 

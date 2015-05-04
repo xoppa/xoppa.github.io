@@ -5,7 +5,11 @@ layout: blog
 {% for post in site.categories.blog %}
 <div class="article-wrapper">
 	<a href="{{ post.url | prepend: site.baseurl }}"><b>{{ post.title }}</b></a>
-    {{ post.content | split: '<more />' | first }}<br />
+	{% if post.eye_catch %}
+    <img src="{{ post.url | prepend: site.baseurl }}{{post.eye_catch}}" height="100" alt="" style="float: right;">
+    {% endif %}
+    {{ post.content | split: '<more />' | first }}
+    <br />
     <a href="{{ post.url | prepend: site.baseurl }}">more...</a>
 </div>
 

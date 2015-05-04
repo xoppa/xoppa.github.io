@@ -6,6 +6,7 @@ comments: true
 title: Behind the 3D scenes - part2
 tags: libGDX 3D Graphics
 author: Xoppa
+eye_catch: behindthescenes2.png
 
 ---
 
