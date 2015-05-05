@@ -71,24 +71,6 @@
 
     <aside class="site-aside">
         <div class="inner">
-            <div class="block">
-                <form action="{{ site.baseurl }}/search">
-                    <input type="search" id="search" name="q" placeholder="{{ site.str_search }}" />
-                </form>
-            </div>
-            <ul>
-                {% assign pages = (site.pages | sort: 'order') %}
-                {% for page in pages %}
-                {% if page.title and page.hide != true %}
-                <li><a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
-                {% endif %}
-                {% endfor %}
-            </ul>
-            <ul class="icons">
-                {% include icons.html icons=site.icons %}
-            </ul>
-            <hr class="with-no-margin margin-bottom"/>
-
             <div class="block sticky">
                 <h1>{{ site.str_recent_posts }}</h1>
                 <ul>
@@ -97,11 +79,7 @@
                     <li><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></li>
                     {% endfor %}
                 </ul>
-            </div>
-            
-            <div class="block">
-            Begin
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- Blog right -->
 <ins class="adsbygoogle"
      style="display:inline-block;width:300px;height:250px"
@@ -109,8 +87,7 @@
      data-ad-slot="7705666855"></ins>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-			End
+				</script>
             </div>
         </div>
     </aside>
