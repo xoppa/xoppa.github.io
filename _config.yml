@@ -1,4 +1,4 @@
 markdown: redcarpet
 permalink: /:categories/:title/
 encoding: "utf-8"
-
+google_analytics: UA-28042435-1
