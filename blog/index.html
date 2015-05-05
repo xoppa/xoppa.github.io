@@ -4,13 +4,37 @@ layout: blog
 
 {% for post in site.categories.blog %}
 <div class="article-wrapper">
-	<a href="{{ post.url | prepend: site.baseurl }}"><b>{{ post.title }}</b></a>
+	<article>
+	    <h1 class="listing"><a href="{{ post.url | prepend: site.baseurl }}"><b>{{ post.title }}</b></a></h1>
+		{% include article-header-line.html post=page %}
+                   
+        {% assign excerpt_size = post.excerpt | size %}
+        {% assign content_size = post.content | size %}
+        {% if excerpt_size < content_size %}
+        <section class="post-excerpt">
+      	{% if post.eye_catch %}
+	    <img src="{{ post.url | prepend: site.baseurl }}{{post.eye_catch}}" height="100" alt="" style="float: right;">
+    	{% endif %}
+        {{ post.excerpt }}
+    	<a href="{{ post.url | prepend: site.baseurl }}">more...</a>
+        </section>
+        {% else %}
+      	{% if post.eye_catch %}
+	    <img src="{{ post.url | prepend: site.baseurl }}{{post.eye_catch}}" height="100" alt="" style="float: right;">
+    	{% endif %}
+        <section class="post-content">
+        {{ post.content }}
+        </section>
+        {% endif %}
+
+	<!--a href="{{ post.url | prepend: site.baseurl }}"><b>{{ post.title }}</b></a>
 	{% if post.eye_catch %}
     <img src="{{ post.url | prepend: site.baseurl }}{{post.eye_catch}}" height="100" alt="" style="float: right;">
     {% endif %}
     {{ post.content | split: '<more />' | first }}
     <br />
-    <a href="{{ post.url | prepend: site.baseurl }}">more...</a>
+    <a href="{{ post.url | prepend: site.baseurl }}">more...</a-->
+    </article>
 </div>
 
 {% if forloop.last != true %}

@@ -127,36 +127,42 @@
             .panel {
                 padding: 1em 1.5em;
                 background-color: rgba($page-title-color, .2);
-                h1 {
-                    margin: 0;
-                    &, a {
-                        color: $page-title-color;
-                    }
+            }
+            h1 {
+                margin: 0;
+                &, a {
+                    color: $page-title-color;
                 }
-                ul.meta, ul.tags {
-                    list-style: none;
-                    margin: 0;
-                    padding: 0;
-                    li {
-                        display: inline-block;
-                        color: rgba($text-color, .5);
-                        font-size: 0.95em;
-                        margin-right: 0.5em;
-                        &:last-child {
-                            margin-right: 0;
-                        }
-                    }
+            }
+        }
+		h1.listing {
+                margin: 0;
+                &, a {
+                    color: $page-title-color;
                 }
-                ul.meta {
-                    float: right;
+        }
+        ul.meta, ul.tags {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            li {
+                display: inline-block;
+                color: rgba($text-color, .5);
+                font-size: 0.95em;
+                margin-right: 0.5em;
+                &:last-child {
+                    margin-right: 0;
                 }
-                ul.icons {
-                    margin: 0;
-                    padding: 0;
-                    li {
-                        margin-right: 0;
-                    }
-                }
+            }
+        }
+        ul.meta {
+            float: right;
+        }
+        ul.icons {
+            margin: 0;
+            padding: 0;
+            li {
+                margin-right: 0;
             }
         }
         p:last-child {

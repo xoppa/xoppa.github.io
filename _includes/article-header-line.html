@@ -1,0 +1,40 @@
+{% assign post = include.post %}
+
+<span style="display:inline;float:right;">
+    <ul class="meta">
+        {% if post.date %}
+        <li>
+            <i class="fa fa-calendar"></i>
+            {{ post.date | date: "%Y-%m-%d" }}
+        </li>
+        {% endif %}
+
+        {% if post.author %}
+        <li>
+            <a href="{{ '/search/?a=' | append: post.author | prepend: site.baseurl }}">
+                <i class="fa fa-user"></i>
+                {{ post.author }}
+            </a>
+        </li>
+        {% if post.icons %}
+        <li>
+            <ul class="icons">
+                {% include icons.html icons=post.icons %}
+            </ul>
+        </li>
+        {% endif %}
+        {% endif %}
+    </ul>
+</span>
+
+<ul class="tags">
+    {% assign tags_num = (post.tags | size) %}
+    {% if tags_num > 0 %}
+    <li><i class="fa fa-tags"></i></li>
+    {% endif %}
+    {% for tag in post.tags %}
+    <li>
+        <a class="tag" href="{{ '/search/?t=' | append: tag | prepend: site.baseurl }}">#{{ tag }}</a>
+    </li>
+    {% endfor %}
+</ul>
