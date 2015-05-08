@@ -4,7 +4,7 @@ layout: blogpost
 
 comments: true
 title: Using collision shapes
-tags: libGDX 3D Graphics
+tags: libGDX 3D Graphics math
 author: Xoppa
 
 ---

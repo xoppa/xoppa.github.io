@@ -4,7 +4,7 @@ layout: blogpost
 
 comments: true
 title: 3D frustum culling with libGDX
-tags: libGDX 3D Graphics
+tags: libGDX 3D Graphics math
 author: Xoppa
 eye_catch: frustumculling2.png
 

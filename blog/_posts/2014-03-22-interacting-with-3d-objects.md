@@ -4,7 +4,7 @@ layout: blogpost
 
 comments: true
 title: Interacting with 3D objects
-tags: libGDX 3D Graphics
+tags: libGDX 3D Graphics math
 author: Xoppa
 eye_catch: raypicking2.png
 

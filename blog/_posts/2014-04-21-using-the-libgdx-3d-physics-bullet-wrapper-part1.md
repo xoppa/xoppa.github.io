@@ -4,7 +4,7 @@ layout: blogpost
 
 comments: true
 title: Using the libGDX 3D physics Bullet wrapper - part1
-tags: libGDX 3D Graphics
+tags: libGDX 3D Graphics physics
 author: Xoppa
 eye_catch: bullet5.png
 
