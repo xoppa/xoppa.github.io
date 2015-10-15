@@ -141,9 +141,9 @@ public class MeshPart {
 	/** the primitive type, OpenGL constant like GL_TRIANGLES **/
 	public int primitiveType;
 	/** the offset into a Mesh's indices array **/
-	public int indexOffset;
+	public int offset;
 	/** the number of vertices that make up this part **/
-	public int numVertices;
+	public int size;
 	/** the Mesh the part references, also stored in {@link Model} **/
 	public Mesh mesh;
 }

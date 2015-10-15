@@ -130,7 +130,7 @@ If you make sure to have OpenGL ES 2.0 enabled and run the test, you'll see the 
 In fact, it almost looks like its just a circle instead of a sphere. Just to make sure we know what we are rendering, add the following line to the create method:
 
 ```java
-renderable.primitiveType = GL20.GL_POINTS;
+renderable.meshPart.primitiveType = GL20.GL_POINTS;
 ```
 
 <a href="https://github.com/xoppa/blog/blob/master/tutorials/src/com/xoppa/blog/libgdx/g3d/createshader/step2/ShaderTest.java" title="View full source code on github" target="_blank">View full source code on github</a>
@@ -142,7 +142,7 @@ And run it again.
 Note that you can rotate the camera by dragging on the screen.
 Here we see every vertex the sphere contains. If you look closely you'll see that the sphere is made up of 20 gradually sized and spaced circles (bottom to top) and each circle contains 20 points (around the Y axis). Which matches the <em>divisionsU</em> and <em>divisionsV</em> arguments we specified while creating the sphere. I assume you are familiar with vertices and meshes in general, so I'll not dive deeper into this. But keep in mind what the difference is between a vertex (the points in the image above) and a fragment (every visible pixel of the mesh).
 
-Make sure to remove the line we previously added (`renderable.primitiveType = GL20.GL_POINTS;`), so we're back to the opaque boring sphere.
+Make sure to remove the line we previously added (`renderable.meshPart.primitiveType = GL20.GL_POINTS;`), so we're back to the opaque boring sphere.
 
 Now let's make that sphere a bit more interesting by customizing the default shader. This is done by two glsl files, representing the shader code. One, which is executed for every vertex within our sphere (the dots shown above) and one which is executed for every pixel (fragment) on the sphere. So create two empty files within the data folder of the assets folder and name them <em>test.vertex.glsl</em> and <em>test.fragment.glsl</em>.
 
@@ -338,10 +338,7 @@ public class TestShader implements Shader {
 	@Override
 	public void render (Renderable renderable) {
 		program.setUniformMatrix("u_worldTrans", renderable.worldTransform);
-		renderable.mesh.render(program,
-			renderable.primitiveType,
-			renderable.meshPartOffset,
-			renderable.meshPartSize);
+		renderable.meshPart.render(program);
 	}
 	...
 }
@@ -429,10 +426,7 @@ public class TestShader implements Shader {
 	@Override
 	public void render (Renderable renderable) {
 		program.setUniformMatrix(u_worldTrans, renderable.worldTransform);
-		renderable.mesh.render(program,
-			renderable.primitiveType,
-			renderable.meshPartOffset,
-			renderable.meshPartSize);
+		renderable.meshPart.render(program);
 	}
 	...
 }

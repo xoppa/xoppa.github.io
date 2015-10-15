@@ -263,14 +263,8 @@ Notice that ModelInstance implements the RenderableProvider interface. When we c
 public class Renderable {
 	/** the model transform **/
 	public final Matrix4 worldTransform = new Matrix4();
-	/** the mesh to render **/
-	public Mesh mesh;
-	/** the offset into the mesh's indices **/
-	public int meshPartOffset;
-	/** the number of indices/vertices to use **/
-	public int meshPartSize;
-	/** the primitive type, encoded as an OpenGL constant, like {@link GL20#GL_TRIANGLES} **/
-	public int primitiveType;
+	/** The MeshPart that contains the shape to render **/
+	public MeshPart meshPart;
 	/** the material to be applied to the mesh **/
 	public Material material;
 	/** the bones transformations used for skinning, or null if not applicable */  
@@ -305,10 +299,7 @@ public class BehindTheScenesTest implements ApplicationListener {
 		NodePart blockPart = model.getNode("ship").parts.get(0);
 		
 		renderable = new Renderable();
-		renderable.mesh = blockPart.meshPart.mesh;
-		renderable.meshPartOffset = blockPart.meshPart.indexOffset;
-		renderable.meshPartSize = blockPart.meshPart.numVertices;
-		renderable.primitiveType = blockPart.meshPart.primitiveType;
+		renderable.meshPart.set(blockPart.meshPart);
 		renderable.material = blockPart.material;
 		renderable.environment = environment;
 		renderable.worldTransform.idt();
@@ -364,10 +355,7 @@ public class BehindTheScenesTest implements ApplicationListener {
 		NodePart blockPart = model.getNode("ship").parts.get(0);
 		
 		renderable = new Renderable();
-		renderable.mesh = blockPart.meshPart.mesh;
-		renderable.meshPartOffset = blockPart.meshPart.indexOffset;
-		renderable.meshPartSize = blockPart.meshPart.numVertices;
-		renderable.primitiveType = blockPart.meshPart.primitiveType;
+		renderable.meshPart.set(blockPart.meshPart);
 		renderable.material = blockPart.material;
 		renderable.environment = environment;
 		renderable.worldTransform.idt();
