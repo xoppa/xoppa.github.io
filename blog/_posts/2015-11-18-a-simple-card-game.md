@@ -3,7 +3,7 @@
 layout: blogpost
 
 comments: true
-title: Preview - A simple card game
+title: A simple card game
 tags: libGDX 2D 3D Graphics
 author: Xoppa
 eye_catch: cardsontable.gif
