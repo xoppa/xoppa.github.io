@@ -6,19 +6,20 @@ comments: true
 title: Preview - A simple card game
 tags: libGDX 2D 3D Graphics
 author: Xoppa
-eye_catch: 3dsprite.gif
+eye_catch: cardsontable.gif
 
 ---
 
-**Preview: coming soon**<br />
-In this blog post I will show you how to use real 3D perspective in a typical 2D game a card game.
+In this blog post I will show you how to use real 3D perspective in a typical 2D card game.
 We will not look into the actual game logic, but only focus on the graphics side. Ranging from
 obtaining and preparing the assets up until using a perspective camera and positioning and rotating
 playing cards in 3D space. This is a relatively low entry tutorial, but some experience with
 libGDX is recommended.
 <more />
 
-<span style="color:red">**NOTE:**</span> *This is a preview and likely to change.* 
+The full <a href="https://github.com/xoppa/blog/tree/master/tutorials/src/com/xoppa/blog/libgdx/g3d/cardgame" target="_blank">source</a>,
+<a href="https://github.com/xoppa/blog/tree/master/tutorials/assets/cardgame/data" target="_blank">assets</a>
+and a runnable test of this tutorial can be found on <a href="https://github.com/xoppa/blog" target="_blank">this github repository</a>.
 
 ## The assets
 
@@ -1036,4 +1037,165 @@ public class CardGame implements ApplicationListener {
 
 <a href="https://github.com/xoppa/blog/blob/master/tutorials/src/com/xoppa/blog/libgdx/g3d/cardgame/step7/CardGame.java" target="_blank">View full source on github</a>
 
+If run this you'll see it is exactly the same as above, except that it now only requires a single draw call, which is
+a lot better for performance. This is also how voxels basically work.
 
+## Add a table
+
+Time to have some fun! Let's add a table, for which I will use a simple box model. This part is very simple, I am
+using the code of <a href="https://xoppa.github.io/blog/basic-3d-using-libgdx" target="_blank">this tutorial</a>.
+That tutorial also shows how to add an Environment for lighting, which I will add as well.
+
+```java
+public class CardGame implements ApplicationListener {
+	...
+	Model tableTopModel;
+	ModelInstance tableTop;
+	Environment environment;
+	
+	@Override
+	public void create() {
+		...
+		ModelBuilder builder = new ModelBuilder();
+		builder.begin();
+		builder.node().id = "top";
+		builder.part("top", GL20.GL_TRIANGLES, Usage.Position | Usage.Normal,
+				new Material(ColorAttribute.createDiffuse(new Color(0x63750A))))
+			.box(0f, 0f, -0.5f, 20f, 20f, 1f);
+		tableTopModel = builder.end();
+		tableTop = new ModelInstance(tableTopModel);
+		
+		environment = new Environment();
+		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1.f));
+		environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -.4f, -.4f, -.4f));
+	}
+	
+	@Override
+	public void render() {
+		...
+		modelBatch.begin(cam);
+		modelBatch.render(tableTop, environment);
+		modelBatch.render(cards, environment);
+		modelBatch.end();
+	}
+	
+	@Override
+	public void dispose() {
+		modelBatch.dispose();
+		atlas.dispose();
+		cards.dispose();
+		tableTopModel.dispose();
+	}
+}
+```
+
+<a href="https://github.com/xoppa/blog/blob/master/tutorials/src/com/xoppa/blog/libgdx/g3d/cardgame/step8/CardGame.java" target="_blank">View full source on github</a>
+
+This code is practically copied from <a href="https://xoppa.github.io/blog/basic-3d-using-libgdx" target="_blank">that tutorial</a>.
+It creates a `Model` using `ModelBuilder`. Then it creates a `ModelInstance` from the `Model`. It also creates
+an `Environment` and adds a `AmbientLight` and `DirectionalLight` to it. The `environment` is used as second
+argument in the `modelBatch.render` call. Finally the `Model` needs to be disposed because it contains native
+resources.
+
+You might note that I did use a slightly different way to create the box model though. Instead of the `createBox`
+convenience method, I've use the `part` and `box` methods. This is practically the same, but allows for some more
+flexibility.
+
+The "table top" is a box with a width of 20 (card widths), a height of 20 (card widths) and a depth of 1 (card width).
+It is centered at `x:0, y:0, z:-0.5`, meaning that it practically is 20 by 20 size exactly on the XY plane (`z=0`).
+Let's run it and see how it looks:
+
+<a href="table.gif"><img src="table.gif" alt="table.gif" width="300" /></a>.
+
+## Keeping the cards on the table
+
+Well, that doesn't look good, we have two problems. First of all the card is rotating around the Y axis on `z=0`, so
+half the card is always stuck in the table. To solve that we would need to lift the card a bit from the table when
+rotating.
+
+The second problem is called <a href="https://en.wikipedia.org/wiki/Z-fighting" target="_blank">z-fighting</a>. Both
+the table and the cards are located at `z=0`, they are practically at the same distance from the camera. Depending
+on the angle of the camera and the distance (`cam.far` / `cam.near`) the camera can see, this causes 
+<a href="https://en.wikipedia.org/wiki/Floating_point#Accuracy_problems" target="_blank">floating point precision errors</a>
+making parts of the table visible through the card. We can solve this by slightly moving the cards towards the
+camera.
+
+The second problem, moving the cards a bit towards the camera, is easy. But for the first problem we'd need to keep
+track of the rotation and set the z-coordinate accordingly. Preferable we don't want to care about that in the game
+logic, because that's only 2D on the surface of the table. Therefor we will keep track of the position and the
+angle with the card and wont be using the `transform` matrix directly anymore
+(<a href="http://badlogicgames.com/forum/viewtopic.php?f=11&t=17878&p=75338#p75338" target="_blank">here you can read
+more info about that</a>).
+
+```java
+	public static class Card {
+		...
+		public final Matrix4 transform = new Matrix4();
+		public final Vector3 position = new Vector3();
+		public float angle;
+		...
+		public void update() {
+			float z = position.z + 0.5f * Math.abs(MathUtils.sinDeg(angle));
+			transform.setToRotation(Vector3.Y, angle);
+			transform.trn(position.x, position.y, z);
+		}
+	}
+```
+
+This allows us to position the card on a plane using the `position` vector, along with specifying an `angle` of
+the rotation on the Y-axis and calling the `update` method will set the `transform` matrix accordingly. For the
+card lifting part I used a sine, which gives a nice natural look of lifting the card from the table while turning
+it.
+
+Note you could hide the transform matrix to prevent modifying it directly as well as a setter for the position
+and angle which would automatically call `update`. I'll leave that up to you, if you like that to add.
+
+Now let's use these two new members. And don't forget to fix the second problem as well by slightly moving the
+cards away from the table.
+
+```java
+	@Override
+	public void create() {
+		...
+		Card card1 = deck.getCard(Suit.Diamonds, Pip.Queen);
+		card1.position.set(-1, 0, 0.01f);
+		card1.update();
+		cards.add(card1);
+		
+		Card card2 = deck.getCard(Suit.Hearts, Pip.Seven);
+		card2.position.set(0, 0, 0.01f);
+		card2.update();
+		cards.add(card2);
+		
+		Card card3 = deck.getCard(Suit.Spades, Pip.Ace);
+		card3.position.set(1, 0, 0.01f);
+		card3.update();
+		cards.add(card3);
+		...
+	}
+	...
+	@Override
+	public void render() {
+		...
+		Card card = cards.first();
+		card.angle = (card.angle + 90 * delta) % 360;
+		card.update();
+		...
+	}
+```
+
+<a href="https://github.com/xoppa/blog/blob/master/tutorials/src/com/xoppa/blog/libgdx/g3d/cardgame/step9/CardGame.java" target="_blank">View full source on github</a>
+
+This should be pretty straight forward. I moved the cards 0.01 (1% of the card width) in front of the table.
+Of course, as an alternative, you could move the table that amount away from the camera to keep the cards on
+`z=0` if you prefer that.
+
+<a href="cardsontable.gif"><img src="cardsontable.gif" alt="cardsontable.gif" width="300" /></a>.
+
+Well that looks a lot better. What's also nice is that we now can tween the `position` and `angle` values, for
+example to implement an animation. I'll leave it up to you as an exercise to add an animation like in the
+following image. Although, admittedly, I added some shadows for the extra visual effect.
+
+<a href="animation.gif"><img src="animation.gif" alt="animation.gif" width="300" /></a>.
+
+If you want to have a look at it, you can find the source code behind this image also on github.
