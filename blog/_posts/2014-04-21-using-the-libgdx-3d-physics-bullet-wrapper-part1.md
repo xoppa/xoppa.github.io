@@ -849,7 +849,7 @@ This concludes this first part on using the LibGDX Bullet wrapper. In the [next 
 
 Of course, it's impossible to cover every aspect of collision detection in this tutorial. For example, it is possible to use Bullet for more accurate ray picking, than we've seen in the previous tutorial. You could even use Bullet for frustum culling (although that's not advised).
 
-I highly suggest to read the <a href="https://github.com/erwincoumans/bullet2/blob/master/Bullet_User_Manual.pdf?raw=true" target="_blank">Bullet manual</a>, it is a good read and the place to start when using the Bullet library. It isn't targeted to the LibGDX Bullet wrapper, but of it still applies.
+I highly suggest to read the <a href="https://github.com/TheJosh/bullet2/blob/master/Bullet_User_Manual.pdf?raw=true" target="_blank">Bullet manual</a>, it is a good read and the place to start when using the Bullet library. It isn't targeted to the LibGDX Bullet wrapper, but of it still applies.
 
 The <a href="http://bulletphysics.org/wordpress/" target="_blank">Bullet website</a> and especially the <a href="http://bulletphysics.org/mediawiki-1.5.8/index.php/Main_Page" target="_blank">Bullet wiki</a> provides a lot of practical information, for example about the <a href="http://bulletphysics.org/mediawiki-1.5.8/index.php/Collision_Shapes" target="_blank">various collision shapes</a>, <a href="http://bulletphysics.org/mediawiki-1.5.8/index.php/Collision_Callbacks_and_Triggers" target="_blank">contact callbacks</a> and <a href="http://bulletphysics.org/mediawiki-1.5.8/index.php/Collision_Filtering" target="_blank">collision filtering</a>. Also the <a href="http://www.bulletphysics.org/Bullet/phpBB3/" target="_blank">forum</a> is quite active.
 
